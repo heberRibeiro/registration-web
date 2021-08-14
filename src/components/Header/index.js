@@ -1,10 +1,13 @@
 import React from 'react';
 import { FaHome, FaSignInAlt, FaUserAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { Nav } from './styled';
 
 function Header() {
+  const click = useSelector(state => state.click);
+
   return (
     <Nav>
       <Link to='/'>
@@ -16,6 +19,7 @@ function Header() {
       <Link to='/'>
         <FaUserAlt />
       </Link>
+      {click ? 'Clicado' : 'Não Clicado'}
     </Nav>
   );
 }
