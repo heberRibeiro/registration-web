@@ -10,7 +10,7 @@ function Login() {
 
   function handleClick(e) {
     e.preventDefault();
-    dispatch(exampleActions.click());
+    dispatch(exampleActions.clickRequest());
   }
 
   return (
