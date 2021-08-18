@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Container } from '../../styles/GlobalStyle';
 
-function Login() {
+function Student() {
   return (
     <Container>
-      <h1>Login</h1>
+      <h1>Student</h1>
     </Container>
   );
 }
 
-export default Login;
+export default Student;
