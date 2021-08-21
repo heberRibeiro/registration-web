@@ -17,6 +17,7 @@ function Routes() {
       <MyRoute exact path='/student/:id/edit' component={Student} isClosed />
       <MyRoute exact path='/student/' component={Student} isClosed />
       <MyRoute exact path='/photos/:id' component={Photos} isClosed />
+      <MyRoute exact path='/register' component={Register} isClosed={false} />
       <MyRoute exact path='/register/:id' component={Register} isClosed={false} />
       <MyRoute path='*' component={Page404} />
     </Switch>
