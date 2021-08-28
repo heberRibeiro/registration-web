@@ -17,5 +17,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     'react/jsx-filename-extension': 'off',
     'import/prefer-default-export': 'off',
+    'prefer-destructuring': 'off',
+    'no-useless-return': 'off',
   },
 };
