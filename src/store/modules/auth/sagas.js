@@ -29,7 +29,41 @@ function persisteRehydrate({ payload }) {
   axios.defaults.headers.Authorization = `Bearer ${token}`;
 }
 
+function* registerRequest({ payload }) {
+  const { id, name, email, password } = payload;
+
+  try {
+    if (id) {
+      yield call(axios.put, '/users', { email, name, password });
+      toast.success('Conta alterada com sucesso');
+      yield put(actions.registerSuccess({ name, email, password }));
+    }
+  } catch (e) {
+    const errors = e.response.data ? e.response.data.error : [];
+    const status = e.response.status ? e.response.status : 0;
+
+    if (errors.lenght) {
+      errors.map(error => toast.error(error));
+    } else {
+      toast.error('Erro desconhecido');
+    }
+
+    yield put(actions.registerFailure());
+  }
+
+  // try {
+  //   await axios.post('/users/', { name, email, password });
+
+  //   toast.success('Você fez seu cadastro');
+  //   history.push('/login');
+  // } catch (err) {
+  //   const errors = err.response.data.erros;
+  //   errors.map(error => toast.error(error));
+  // }
+}
+
 export default all([
   takeLatest(types.LOGIN_REQUEST, loginRequest),
   takeLatest(types.PERSIST_REHYDRATE, persisteRehydrate),
+  takeLatest(types.REGISTER_REQUEST, registerRequest),
 ]);

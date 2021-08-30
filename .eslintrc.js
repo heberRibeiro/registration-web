@@ -19,5 +19,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'prefer-destructuring': 'off',
     'no-useless-return': 'off',
+    'no-unused-vars': 'warn',
   },
 };
