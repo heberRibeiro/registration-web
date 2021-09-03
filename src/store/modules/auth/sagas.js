@@ -29,6 +29,7 @@ function persisteRehydrate({ payload }) {
   axios.defaults.headers.Authorization = `Bearer ${token}`;
 }
 
+// eslint-disable-next-line consistent-return
 function* registerRequest({ payload }) {
   const { id, name, email, password } = payload;
 
@@ -36,11 +37,22 @@ function* registerRequest({ payload }) {
     if (id) {
       yield call(axios.put, '/users', { email, name, password });
       toast.success('Conta alterada com sucesso');
-      yield put(actions.registerSuccess({ name, email, password }));
+      yield put(actions.registerUpdatedSuccess({ name, email, password }));
+    } else {
+      yield call(axios.post, '/users', { email, name, password });
+      toast.success('Conta criada com sucesso');
+      yield put(actions.registerCreatedSuccess({ name, email, password }));
+      history.push('/login');
     }
   } catch (e) {
     const errors = e.response.data ? e.response.data.error : [];
     const status = e.response.status ? e.response.status : 0;
+
+    if (status === 401) {
+      toast.error('Você precisa fazer login novamente.');
+      yield put(actions.loginFailure());
+      return history.push('/login');
+    }
 
     if (errors.lenght) {
       errors.map(error => toast.error(error));
@@ -50,16 +62,6 @@ function* registerRequest({ payload }) {
 
     yield put(actions.registerFailure());
   }
-
-  // try {
-  //   await axios.post('/users/', { name, email, password });
-
-  //   toast.success('Você fez seu cadastro');
-  //   history.push('/login');
-  // } catch (err) {
-  //   const errors = err.response.data.erros;
-  //   errors.map(error => toast.error(error));
-  // }
 }
 
 export default all([
