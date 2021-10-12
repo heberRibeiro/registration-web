@@ -1,5 +1,12 @@
 import * as types from '../types';
 
+export function login(TYPE, payload) {
+  return {
+    type: `${TYPE}`,
+    payload,
+  };
+}
+
 export function loginRequest(payload) {
   return {
     type: types.LOGIN_REQUEST,
